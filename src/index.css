@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-family: 'Inter', sans-serif;
+  background-color: #050816;
+  color: #e5e7eb;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, rgba(59, 130, 246, 0.14), transparent 18%),
+    radial-gradient(circle at 20% 10%, rgba(168, 85, 247, 0.1), transparent 20%),
+    linear-gradient(180deg, #050816 0%, #090f1d 100%);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle at 15% 20%, rgba(59, 130, 246, 0.08), transparent 28%),
+    radial-gradient(circle at 80% 10%, rgba(139, 92, 246, 0.08), transparent 22%),
+    radial-gradient(circle at 70% 80%, rgba(14, 165, 233, 0.06), transparent 22%);
+  pointer-events: none;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.glass-panel {
+  background: rgba(13, 23, 44, 0.72);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glow-border {
+  box-shadow: 0 0 48px rgba(96, 165, 250, 0.14), inset 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+section {
+  position: relative;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(59, 130, 246, 0.22);
+  border-radius: 9999px;
+  filter: blur(1px);
+  animation: float 17s ease-in-out infinite;
+}
+
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  background: rgba(96, 165, 250, 0.5);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.14s ease-out, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  z-index: 50;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@media (max-width: 640px) {
+  .glass-panel {
+    border-radius: 1rem;
+  }
+}
