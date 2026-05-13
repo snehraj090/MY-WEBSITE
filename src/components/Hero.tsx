@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useMemo, useState } from 'react';
 import { ArrowRight, Download, Mail, Github, Linkedin } from 'lucide-react';
 import { TypingText } from './TypingText';
 import type { ResumeData } from '../types';
@@ -8,6 +9,25 @@ type HeroProps = {
 };
 
 export function Hero({ resume }: HeroProps) {
+  const [photoError, setPhotoError] = useState(false);
+
+  const photoSrc = useMemo(() => {
+    if (!resume.photoUrl) return undefined;
+    const base = import.meta.env.BASE_URL || '/';
+    return resume.photoUrl.startsWith('/')
+      ? `${base}${resume.photoUrl.slice(1)}`
+      : resume.photoUrl;
+  }, [resume.photoUrl]);
+
+  const initials = resume.name
+    ? resume.name
+        .split(' ')
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((part) => part[0].toUpperCase())
+        .join('')
+    : 'RV';
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 32 }}
@@ -52,14 +72,16 @@ export function Hero({ resume }: HeroProps) {
           <div className="relative space-y-5">
             <div className="flex items-center gap-4 rounded-[1.75rem] bg-slate-950/80 p-5 shadow-lg shadow-slate-950/40">
               <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-cyan-500/30 via-purple-600/20 to-slate-900/60 text-3xl font-semibold text-white shadow-xl shadow-cyan-500/10">
-                {resume.photoUrl ? (
+                {resume.photoUrl && !photoError ? (
                   <img
-                    src={resume.photoUrl}
+                    src={photoSrc}
                     alt={resume.name}
                     className="h-full w-full rounded-3xl object-cover"
+                    onError={() => setPhotoError(true)}
+                    loading="lazy"
                   />
                 ) : (
-                  <span>RV</span>
+                  <span>{initials}</span>
                 )}
               </div>
               <div>
@@ -72,7 +94,9 @@ export function Hero({ resume }: HeroProps) {
               <p className="text-sm uppercase text-cyan-300/80 tracking-[0.3em]">Contact</p>
               <div className="space-y-2 text-sm text-slate-200">
                 <p><span className="font-semibold text-white">Email:</span> {resume.contact.email}</p>
-                <p><span className="font-semibold text-white">Phone:</span> {resume.contact.phone}</p>
+                {resume.contact.phone ? (
+                  <p><span className="font-semibold text-white">Phone:</span> {resume.contact.phone}</p>
+                ) : null}
                 <p><span className="font-semibold text-white">Location:</span> {resume.contact.location}</p>
               </div>
             </div>

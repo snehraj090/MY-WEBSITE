@@ -1,4 +1,5 @@
 import type { ResumeData } from '../types';
+import profilePhoto from '../components/photo/eh1w91c385rmt0cxt0rsqs1hx4_result_0.png';
 
 export const defaultResumeData: ResumeData = {
   name: 'Raja Vishwakarma',
@@ -9,7 +10,7 @@ export const defaultResumeData: ResumeData = {
     'Seeking internship and placement opportunities where I can contribute to real-world software development projects through practical full-stack experience and collaborative teamwork.',
   interests: ['Full Stack Web Development', 'Java Application Development', 'Web Application Architecture', 'Database Design', 'Performance Optimization'],
   softSkills: ['Graphic Designing', 'Time Management', 'Decision Making', 'Teamwork', 'Collaboration', 'Adaptability', 'Leadership Quality'],
-  photoUrl: '/profile.jpg',
+  photoUrl: profilePhoto,
   stats: [
     { label: 'Full Stack Projects', value: '2+', icon: 'code' },
     { label: 'Certifications', value: '6', icon: 'award' },
@@ -67,7 +68,7 @@ export const defaultResumeData: ResumeData = {
   ],
   contact: {
     email: 'rajak96097@gmail.com',
-    phone: '+91-9693469224',
+    phone: '',
     location: 'Gurgaon, India',
     social: {
       github: 'https://github.com/snehraj090',
