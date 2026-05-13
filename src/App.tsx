@@ -36,7 +36,7 @@ function App() {
         <section id="home" className="relative pt-16">
           <Hero resume={resumeData} />
           <div className="mt-8">
-            <ResumeUploader onData={setResumeData} />
+            <ResumeUploader currentData={resumeData} onData={setResumeData} />
           </div>
         </section>
 

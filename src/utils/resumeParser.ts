@@ -1,5 +1,6 @@
 import type { ResumeData } from '../types';
 import { defaultResumeData } from '../data/resume';
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
 const sectionHeaders = [
   'summary',
@@ -195,7 +196,7 @@ const readTextFile = (file: File) =>
 const readPdfFile = async (file: File) => {
   const arrayBuffer = await file.arrayBuffer();
   const pdfjs = await import('pdfjs-dist');
-  pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.js', import.meta.url).toString();
+  pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
   const doc = await pdfjs.getDocument({ data: arrayBuffer }).promise;
   let fullText = '';
   for (let page = 1; page <= doc.numPages; page += 1) {
